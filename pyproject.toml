@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transitplanner"
+version = "0.1.0"
+description = "Tool to plan and simulate observable exoplanet transits"
+authors = [
+    {name="Robyn Burnett"}
+    { name = "Salmanul Farisi" }
+    {name=" Aidan McMullin "}
+    {name="Cai Morgan" }
+    {name= "Lillie Smith"}
+    {name= "Oliver Seaby" }    
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy",
+    "pandas",
+    "astropy",
+    "matplotlib"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
