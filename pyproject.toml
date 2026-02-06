@@ -22,7 +22,10 @@ dependencies = [
     "numpy",
     "pandas",
     "astropy",
-    "matplotlib"
+    "matplotlib",
+    "astroquery",
+    "astroplan",
+    "pylightcurve"
 ]
 
 [tool.setuptools]
@@ -30,5 +33,6 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
 
 
