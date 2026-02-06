@@ -2,7 +2,7 @@
 import urllib.request, json
 from astroquery.ipac.nexsci.nasa_exoplanet_archive import NasaExoplanetArchive
 import matplotlib.pyplot as plt
-
+import pandas as p
 from .core.visibility import find_observable_exoplanets
 from .observability.enrich import enrich_planets
 from .observability.snr import snr_formula
@@ -95,4 +95,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
