@@ -11,6 +11,7 @@ authors = [
     { name = "Salmanul Farisi" },
     {name=" Aidan McMullin "},
     {name="Cai Morgan" },
+    {name= "Lorenzo Mugnai"},
     {name= "Lillie Smith"},
     {name= "Oliver Seaby" }    
 ]
@@ -29,4 +30,5 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
 
