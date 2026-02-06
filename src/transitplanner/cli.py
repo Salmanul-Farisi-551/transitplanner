@@ -73,7 +73,8 @@ def main():
 
     # 6. Select observable planets
     observable_planets = [p for p in planet_list if p["Status"] == "Observable"]
-    print(observable_planets)
+    foR p in observable_planets:
+        print(P)
     if not observable_planets:
         print("No observable planets in the selected window.")
         return
@@ -92,6 +93,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
