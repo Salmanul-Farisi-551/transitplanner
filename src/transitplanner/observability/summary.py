@@ -9,12 +9,12 @@ def check_observability_table(planet_list, export_csv=None, export_excel=None):
         print(f"Rp/Rs: {planet['RpRs']:.4f}")
         print(f"a/Rs: {planet['aRs']:.2f}")
         print(f"Inclination: {planet['inclination']:.2f} deg")
-        print(f"Transit depth: {planet['depth_mmag']:.2f} mmag")
-        print(f"Transit duration: {planet['duration_min']:.1f} min ({planet['duration_hours']:.3f} hours)")
-        print(f"R magnitude (merged): {planet['Rmag']:.2f}")
-        print(f"SNR: {planet['snr']:.2f}")
-        print(f"RA/DEC: {planet['RA']}, {planet['DEC']:.2f}°")
-        print(f"Status: {planet['status']}")
+        print(f"Transit depth: {planet['Transit Depth (mmag)']:.2f} mmag")
+        print(f"Transit duration: {planet['duration_min']:.1f} min ({planet['Duration (hours)']:.3f} hours)")
+        print(f"R magnitude (merged): {planet['R Magnitude']:.2f}")
+        print(f"SNR: {planet['SNR']:.2f}")
+        print(f"RA/DEC: {planet['RA']}, {planet['Dec']:.2f}°")
+        print(f"Status: {planet['Status']}")
         summary_data.append({
             "Planet": planet['Object'],
             "Transit Start (UTC)": planet['Transit Start (UTC)'],
@@ -38,6 +38,7 @@ def check_observability_table(planet_list, export_csv=None, export_excel=None):
     if export_excel:
         df.to_excel(export_excel, index=False)
     return df
+
 
 
 
