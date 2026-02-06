@@ -41,9 +41,11 @@ def main():
     url = "https://www.exoclock.space/database/planets_json"
     exoclock_planets = json.loads(urllib.request.urlopen(url).read())
 
-    nasa_table = NasaExoplanetArchive.query_criteria("pscomppars")
-    nasa = nasa_table.to_pandas()
-    nasa.set_index("pl_name", inplace=True)
+    nasa = pd.read_csv("data/pscomppars.csv")
+    nasa.set_index('pl_name', inplace=True)
+    #nasa_table = NasaExoplanetArchive.query_criteria("pscomppars")
+    #nasa = nasa_table.to_pandas()
+    #nasa.set_index("pl_name", inplace=True)
 
     # 3. Enrich planet data
     planet_list = enrich_planets(planet_list, exoclock_planets, nasa)
@@ -93,3 +95,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
