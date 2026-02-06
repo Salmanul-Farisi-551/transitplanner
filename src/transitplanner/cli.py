@@ -63,17 +63,17 @@ def main():
             else "Not Observable"
         )
          
-      print(f"\n--- Observability Check for {planet['Object']} ---")
-      print(f"Host star: {planet['Object']}")
-      print(f"Rp/Rs: {RpRs:.4f}")
-      print(f"a/Rs: {aRs:.2f}")
-      print(f"Inclination: {inc_deg:.2f} deg")
-      print(f"Transit depth: {depth_mmag:.2f} mmag")
-      print(f"Transit duration: {duration_min:.1f} min ({duration_hours:.3f} hours)")
-      print(f"R magnitude (merged): {Rmag:.2f}")
-      print(f"SNR: {snr:.2f}")
-      print(f"RA/DEC: {RA}, {DEC:.2f}°")
-      print(f"Status: {status}")
+            print(f"\n--- Observability Check for {planet['Object']} ---")
+            print(f"Host star: {planet['Object']}")
+            print(f"Rp/Rs: {RpRs:.4f}")
+            print(f"a/Rs: {aRs:.2f}")
+            print(f"Inclination: {inc_deg:.2f} deg")
+            print(f"Transit depth: {depth_mmag:.2f} mmag")
+            print(f"Transit duration: {duration_min:.1f} min ({duration_hours:.3f} hours)")
+            print(f"R magnitude (merged): {Rmag:.2f}")
+            print(f"SNR: {snr:.2f}")
+            print(f"RA/DEC: {RA}, {DEC:.2f}°")
+            print(f"Status: {status}")
     # 5. Summary table
     check_observability_table(
         planet_list,
@@ -102,6 +102,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
