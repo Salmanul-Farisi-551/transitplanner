@@ -41,11 +41,7 @@ def main():
     url = "https://www.exoclock.space/database/planets_json"
     exoclock_planets = json.loads(urllib.request.urlopen(url).read())
 
-    #nasa = pd.read_csv("data/PSCompPars_2026.02.06_07.59.55_compressed.csv")
-    #nasa.set_index('pl_name', inplace=True)
-    #nasa_table = NasaExoplanetArchive.query_criteria("pscomppars")
-    #nasa = nasa_table.to_pandas()
-    #nasa.set_index("pl_name", inplace=True)
+    
     nasa=load_nasa_data()
     # 3. Enrich planet data
     planet_list = enrich_planets(planet_list, exoclock_planets, nasa)
@@ -66,7 +62,18 @@ def main():
             if DEC_MIN <= planet["Dec"] <= DEC_MAX and planet["SNR"] >= SNR_LIM
             else "Not Observable"
         )
-
+         
+      print(f"\n--- Observability Check for {planet['Object']} ---")
+      print(f"Host star: {planet['Object']}")
+      print(f"Rp/Rs: {RpRs:.4f}")
+      print(f"a/Rs: {aRs:.2f}")
+      print(f"Inclination: {inc_deg:.2f} deg")
+      print(f"Transit depth: {depth_mmag:.2f} mmag")
+      print(f"Transit duration: {duration_min:.1f} min ({duration_hours:.3f} hours)")
+      print(f"R magnitude (merged): {Rmag:.2f}")
+      print(f"SNR: {snr:.2f}")
+      print(f"RA/DEC: {RA}, {DEC:.2f}°")
+      print(f"Status: {status}")
     # 5. Summary table
     check_observability_table(
         planet_list,
@@ -95,6 +102,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
