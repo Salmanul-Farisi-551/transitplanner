@@ -4,17 +4,6 @@ def check_observability_table(planet_list, export_csv=None, export_excel=None):
     summary_data = []
 
     for planet in planet_list:
-        print(f"\n--- Observability Check for {planet['Object']} ---")
-        print(f"Host star: {planet['Object']}")
-        print(f"Rp/Rs: {planet['RpRs']:.4f}")
-        print(f"a/Rs: {planet['aRs']:.2f}")
-        print(f"Inclination: {planet['inclination']:.2f} deg")
-        print(f"Transit depth: {planet['Transit Depth (mmag)']:.2f} mmag")
-        print(f"Transit duration: {planet['duration_min']:.1f} min ({planet['Duration (hours)']:.3f} hours)")
-        print(f"R magnitude (merged): {planet['R Magnitude']:.2f}")
-        print(f"SNR: {planet['SNR']:.2f}")
-        print(f"RA/DEC: {planet['RA']}, {planet['Dec']:.2f}°")
-        print(f"Status: {planet['Status']}")
         summary_data.append({
             "Planet": planet['Object'],
             "Transit Start (UTC)": planet['Transit Start (UTC)'],
