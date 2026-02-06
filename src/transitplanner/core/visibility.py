@@ -6,7 +6,98 @@ from astropy.coordinates import SkyCoord, EarthLocation, AltAz
 from astroplan import Observer
 import astropy.units as u
 
-def find_observable_exoplanets(longitude, latitude, start_date_str, span_days,
-                               min_altitude, telescope_aperture_inches):
-    # Full function code from your main script
-    ...
+def find_observable_exoplanets(
+        longitude, latitude,
+        start_date_str, span_days,
+        min_altitude,
+        telescope_aperture_inches):
+
+    start_date = datetime.strptime(start_date_str, "%d/%m/%y")
+    end_date = start_date + timedelta(days=span_days)
+
+    location = EarthLocation(lat=latitude*u.deg, lon=longitude*u.deg)
+    observer = Observer(location=location, name="Observer", timezone="UTC")
+
+    url = "https://www.exoclock.space/database/planets_json"
+    exoclock_planets = json.loads(urllib.request.urlopen(url).read())
+
+    results = []
+
+    for planet in exoclock_planets.values():
+
+        if "min_telescope_inches" not in planet:
+            continue
+        if planet["min_telescope_inches"] > telescope_aperture_inches:
+            continue
+
+        ra = planet.get("ra_j2000")
+        dec = planet.get("dec_j2000")
+        if ra is None or dec is None:
+            continue
+
+        try:
+            coord = SkyCoord(ra=ra, dec=dec, unit=(u.hourangle, u.deg))
+        except Exception:
+            continue
+
+        t0 = planet.get("ephem_mid_time")
+        period_days = planet.get("ephem_period")
+        duration_hours = planet.get("duration_hours")
+        depth_mmag = planet.get("depth_r_mmag")
+        r_mag = planet.get("r_mag")
+
+        if t0 is None or period_days is None or duration_hours is None:
+            continue
+
+        t_start = Time(start_date)
+        t_end = Time(end_date)
+        t_start_bjd = t_start.tdb.jd
+
+        n = np.ceil((t_start_bjd - t0) / period_days)
+        current_mid = Time(t0 + n * period_days, format="jd", scale="tdb")
+
+        while current_mid <= t_end:
+
+            half_duration = (duration_hours / 2.0) * u.hour
+            transit_start = current_mid - half_duration
+            transit_end = current_mid + half_duration
+            one_hour_before_ingress = transit_start - 1*u.hour
+            one_hour_after_egress = transit_end + 1*u.hour
+
+            sun_alt_start = observer.sun_altaz(transit_start).alt.deg
+            sun_alt_mid   = observer.sun_altaz(current_mid).alt.deg
+            sun_alt_end   = observer.sun_altaz(transit_end).alt.deg
+
+            if not (sun_alt_start < -18 and sun_alt_mid < -18 and sun_alt_end < -18):
+                current_mid += period_days * u.day
+                continue
+
+            altaz_start  = coord.transform_to(AltAz(obstime=transit_start, location=location))
+            altaz_mid    = coord.transform_to(AltAz(obstime=current_mid, location=location))
+            altaz_end    = coord.transform_to(AltAz(obstime=transit_end, location=location))
+
+            if not (
+                altaz_start.alt.deg >= min_altitude and
+                altaz_mid.alt.deg   >= min_altitude and
+                altaz_end.alt.deg   >= min_altitude
+            ):
+                current_mid += period_days * u.day
+                continue
+
+            results.append({
+                "Object": planet["name"],
+                "Priority": planet.get("priority"),
+                "Min Aperture (inches)": planet.get("min_telescope_inches"),
+                "RA": ra,
+                "Dec": dec,
+                "R Magnitude": r_mag,
+                "Transit Depth (mmag)": depth_mmag,
+                "Duration (hours)": float(round(duration_hours, 2)),
+                "Transit Start (UTC)": transit_start.utc.iso,
+                "Mid-Transit (UTC)": current_mid.utc.iso,
+                "Transit End (UTC)": transit_end.utc.iso
+            })
+
+            current_mid += period_days * u.day
+
+    return results
