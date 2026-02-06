@@ -9,7 +9,7 @@ from .observability.snr import snr_formula
 from .observability.summary import check_observability_table
 from .lightcurve.simulator import generate_lightcurve
 from .lightcurve.plotting import plot_lightcurve
-
+from .io.nasa import load_nasa_data
 
 def main():
     # User inputs
@@ -41,12 +41,12 @@ def main():
     url = "https://www.exoclock.space/database/planets_json"
     exoclock_planets = json.loads(urllib.request.urlopen(url).read())
 
-    nasa = pd.read_csv("data/PSCompPars_2026.02.06_07.59.55_compressed.csv")
-    nasa.set_index('pl_name', inplace=True)
+    #nasa = pd.read_csv("data/PSCompPars_2026.02.06_07.59.55_compressed.csv")
+    #nasa.set_index('pl_name', inplace=True)
     #nasa_table = NasaExoplanetArchive.query_criteria("pscomppars")
     #nasa = nasa_table.to_pandas()
     #nasa.set_index("pl_name", inplace=True)
-
+    nasa=load_nasa_data()
     # 3. Enrich planet data
     planet_list = enrich_planets(planet_list, exoclock_planets, nasa)
 
@@ -95,6 +95,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
