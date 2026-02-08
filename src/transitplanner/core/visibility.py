@@ -5,6 +5,9 @@ from astropy.time import Time
 from astropy.coordinates import SkyCoord, EarthLocation, AltAz
 from astroplan import Observer
 import astropy.units as u
+from .geometry import radec_to_altaz
+from .ephemeris import next_transit
+
 
 def find_observable_exoplanets(
         longitude, latitude,
@@ -53,8 +56,9 @@ def find_observable_exoplanets(
         t_end = Time(end_date)
         t_start_bjd = t_start.tdb.jd
 
-        n = np.ceil((t_start_bjd - t0) / period_days)
-        current_mid = Time(t0 + n * period_days, format="jd", scale="tdb")
+        current_mid_jd = next_transit(t0, period_days, t_start_bjd)
+        current_mid = Time(current_mid_jd, format="jd", scale="tdb")
+        
 
         while current_mid <= t_end:
 
@@ -72,14 +76,16 @@ def find_observable_exoplanets(
                 current_mid += period_days * u.day
                 continue
 
-            altaz_start  = coord.transform_to(AltAz(obstime=transit_start, location=location))
-            altaz_mid    = coord.transform_to(AltAz(obstime=current_mid, location=location))
-            altaz_end    = coord.transform_to(AltAz(obstime=transit_end, location=location))
+            alt_start, az_start = radec_to_altaz(ra, dec, location=location, obstime=transit_start)
+            alt_mid, az_mid     = radec_to_altaz(ra, dec, location=location, obstime=current_mid)
+            alt_end, az_end     = radec_to_altaz(ra, dec, location=location, obstime=transit_end)
+                
+           
 
             if not (
-                altaz_start.alt.deg >= min_altitude and
-                altaz_mid.alt.deg   >= min_altitude and
-                altaz_end.alt.deg   >= min_altitude
+                alt_start.alt.deg >= min_altitude and
+                alt_mid.alt.deg   >= min_altitude and
+                alt_end.alt.deg   >= min_altitude
             ):
                 current_mid += period_days * u.day
                 continue
@@ -101,3 +107,4 @@ def find_observable_exoplanets(
             current_mid += period_days * u.day
 
     return results
+
