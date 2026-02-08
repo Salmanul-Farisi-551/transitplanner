@@ -5,9 +5,9 @@ from astropy.time import Time
 from astropy.coordinates import SkyCoord, EarthLocation, AltAz
 from astroplan import Observer
 import astropy.units as u
-from .geometry import radec_to_altaz
-from .ephemeris import next_transit
-
+from .core.geometry import radec_to_altaz
+from .core.ephemeris import next_transit
+from .io.exoclock import load_exoclock_data
 
 def find_observable_exoplanets(
         longitude, latitude,
@@ -22,8 +22,7 @@ def find_observable_exoplanets(
     observer = Observer(location=location, name="Observer", timezone="UTC")
 
     url = "https://www.exoclock.space/database/planets_json"
-    exoclock_planets = json.loads(urllib.request.urlopen(url).read())
-
+    exoclock_planets =load_exoclock_data()
     results = []
 
     for planet in exoclock_planets.values():
@@ -107,6 +106,7 @@ def find_observable_exoplanets(
             current_mid += period_days * u.day
 
     return results
+
 
 
 
