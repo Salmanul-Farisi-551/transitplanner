@@ -9,12 +9,13 @@ def dec_to_deg(dec_str):
     return sign * (deg + minutes/60 + seconds/3600)
 
 
-def choose(exo_val, nasa_val):
-    if exo_val is None:
-        return nasa_val
-    if isinstance(exo_val, float) and pd.isna(exo_val):
-        return nasa_val
-    return exo_val
+# Choose nasa value unless missing, else exoclock
+def choose(nasa_val, exo_val):
+    if nasa_val is None:
+        return exo_val
+    if isinstance(nasa_val, float) and pd.isna(nasa_val):
+        return exo_val
+    return nasa_val
 
 
 def enrich_planets(planet_list, exoclock_planets, nasa_df):
@@ -25,8 +26,8 @@ def enrich_planets(planet_list, exoclock_planets, nasa_df):
         nasa_row = nasa_df.loc[name] if name in nasa_df.index else {}
 
         planet["Dec"] = dec_to_deg(planet["Dec"])
-        planet["RpRs"] = choose(exo.get("rp_over_rs"), nasa_row.get("pl_ratror"))
-        planet["aRs"] = choose(exo.get("sma_over_rs"), nasa_row.get("pl_ratdor"))
-        planet["inclination"] = choose(exo.get("inclination"), nasa_row.get("pl_orbincl"))
+        planet["RpRs"] = choose(nasa_row.get("pl_ratror"),exo.get("rp_over_rs") )
+        planet["aRs"] = choose( nasa_row.get("pl_ratdor"),exo.get("sma_over_rs"))
+        planet["inclination"] = choose(nasa_row.get("pl_orbincl"),exo.get("inclination") )
 
     return planet_list
