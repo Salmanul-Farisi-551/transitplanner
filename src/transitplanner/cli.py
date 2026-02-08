@@ -10,6 +10,7 @@ from .observability.summary import check_observability_table
 from .lightcurve.simulator import generate_lightcurve
 from .lightcurve.plotting import plot_lightcurve
 from .io.nasa import load_nasa_data
+from .io.exoclock import load_exoclock_data
 
 def main():
     # User inputs
@@ -38,8 +39,7 @@ def main():
         return
 
     # 2. Load catalogues
-    url = "https://www.exoclock.space/database/planets_json"
-    exoclock_planets = json.loads(urllib.request.urlopen(url).read())
+    exoclock_planets = load_exoclock_data()
 
     
     nasa=load_nasa_data()
@@ -92,6 +92,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
