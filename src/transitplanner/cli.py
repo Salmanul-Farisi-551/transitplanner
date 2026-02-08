@@ -7,6 +7,7 @@ from .core.visibility import find_observable_exoplanets
 from .observability.enrich import enrich_planets
 from .observability.snr import snr_formula
 from .observability.summary import check_observability_table
+from .observability.filters import apply_filters
 from .lightcurve.simulator import generate_lightcurve
 from .lightcurve.plotting import plot_lightcurve
 from .io.nasa import load_nasa_data
@@ -56,12 +57,8 @@ def main():
             duration_min,
             telescope_aperture_inches
         )
-
-        planet["Status"] = (
-            "Observable"
-            if DEC_MIN <= planet["Dec"] <= DEC_MAX and planet["SNR"] >= SNR_LIM
-            else "Not Observable"
-        )
+        planet["Status"] = "Observable" if apply_filters(planet, DEC_MIN, DEC_MAX, SNR_LIM) else "Not Observable"
+        
          
             
     # 5. Summary table
@@ -92,6 +89,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
