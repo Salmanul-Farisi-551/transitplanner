@@ -83,9 +83,9 @@ def find_observable_exoplanets(
            
 
             if not (
-                alt_start.alt.deg >= min_altitude and
-                alt_mid.alt.deg   >= min_altitude and
-                alt_end.alt.deg   >= min_altitude
+                alt_start >= min_altitude and
+                alt_mid >= min_altitude and
+                alt_end >= min_altitude
             ):
                 current_mid += period_days * u.day
                 continue
@@ -107,5 +107,6 @@ def find_observable_exoplanets(
             current_mid += period_days * u.day
 
     return results
+
 
 
