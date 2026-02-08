@@ -31,6 +31,6 @@ The project structure is inspired by established astronomy software and is inten
 To install from source, clone the repository and move inside the project directory.
 
 ```bash
-git clone https://github.com/Salmanul-Farisi-551/TransitPlanner.git
-cd TransitPlanner
+git clone https://github.com/Salmanul-Farisi-551/transitplanner
+cd transitplanner
 pip install .
