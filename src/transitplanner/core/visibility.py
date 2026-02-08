@@ -76,9 +76,9 @@ def find_observable_exoplanets(
                 current_mid += period_days * u.day
                 continue
 
-            alt_start, az_start = radec_to_altaz(ra, dec, location=location, obstime=transit_start)
-            alt_mid, az_mid     = radec_to_altaz(ra, dec, location=location, obstime=current_mid)
-            alt_end, az_end     = radec_to_altaz(ra, dec, location=location, obstime=transit_end)
+            alt_start, az_start = radec_to_altaz(coord, location=location, obstime=transit_start)
+            alt_mid, az_mid     = radec_to_altaz(coord, location=location, obstime=current_mid)
+            alt_end, az_end     = radec_to_altaz(coord, location=location, obstime=transit_end)
                 
            
 
@@ -107,4 +107,5 @@ def find_observable_exoplanets(
             current_mid += period_days * u.day
 
     return results
+
 
