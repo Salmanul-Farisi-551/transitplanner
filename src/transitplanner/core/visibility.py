@@ -7,7 +7,7 @@ from astroplan import Observer
 import astropy.units as u
 from .geometry import radec_to_altaz
 from .ephemeris import next_transit
-from .io.exoclock import load_exoclock_data
+from ..io.exoclock import load_exoclock_data
 
 def find_observable_exoplanets(
         longitude, latitude,
@@ -106,6 +106,7 @@ def find_observable_exoplanets(
             current_mid += period_days * u.day
 
     return results
+
 
 
 
