@@ -1,4 +1,3 @@
-Lightcurve Simulation Module
 
 This module generates a predicted transit lightcurve for a selected exoplanet.
 It uses the ExoClock catalogue through pylightcurve to obtain transit parameters
