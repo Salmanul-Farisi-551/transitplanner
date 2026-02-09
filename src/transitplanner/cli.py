@@ -81,14 +81,21 @@ def main():
 
     selection = int(input("Select planet number to model: ")) - 1
     target_name = observable_planets[selection]["Object"]
+    snr = observable_planets[selection]["SNR"]
 
     # 7. Light curve
-    obstime, flux, depth = generate_lightcurve(target_name)
-    plot_lightcurve(obstime, flux, title=f"{target_name} Predicted Light Curve")
+    obstime, flux, info = generate_lightcurve(target_name, snr)
 
+    print(f'Observation Time: {info['duration_hours']+ 2:.3f}')
+    print(f"Predicted duration: {info['duration_hours']:.3f} hours")
+    print(f"Predicted depth: {info['depth_mag']:.3f} mag")
+    print(f"Estimated error: {info['error']:.5f}")
+    
+    plot_lightcurve(obstime, flux, info, title=f"{target_name} Predicted Light Curve")
 
 if __name__ == "__main__":
     main()
+
 
 
 
