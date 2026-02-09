@@ -1,5 +1,5 @@
 """
-Observability and Catalogue Merging Module
+e
 
 This module retrieves transit and stellar parameters for a selected exoplanet
 from both the ExoClock catalogue and the NASA Exoplanet Archive. The two sources
