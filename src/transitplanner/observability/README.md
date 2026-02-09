@@ -11,10 +11,9 @@ After merging, the module computes an approximate signal to noise ratio using
 stellar magnitude, transit depth, transit duration and telescope parameters.
 The final observability decision is based on both SNR and declination limits.
 
-Main responsibilities
+Main responsibilities:
 
 Load ExoClock planet data
-
 Load NASA Exoplanet Archive data
 
 Merge parameters using a NASA first rule
