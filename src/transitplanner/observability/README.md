@@ -1,5 +1,4 @@
-"""
-e
+
 
 This module retrieves transit and stellar parameters for a selected exoplanet
 from both the ExoClock catalogue and the NASA Exoplanet Archive. The two sources
@@ -19,4 +18,4 @@ Merge parameters using a NASA first rule
 Handle unit differences such as minutes vs hours and fractional depth vs mmag
 Compute SNR for each planet
 Determine observability based on SNR and declination constraints
-"""
+
