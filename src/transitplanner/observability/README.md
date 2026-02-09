@@ -12,10 +12,16 @@ stellar magnitude, transit depth, transit duration and telescope parameters.
 The final observability decision is based on both SNR and declination limits.
 
 Main responsibilities
+
 Load ExoClock planet data
+
 Load NASA Exoplanet Archive data
+
 Merge parameters using a NASA first rule
+
 Handle unit differences such as minutes vs hours and fractional depth vs mmag
+
 Compute SNR for each planet
+
 Determine observability based on SNR and declination constraints
 
