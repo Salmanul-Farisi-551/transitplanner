@@ -13,7 +13,7 @@ The final observability decision is based on both SNR and declination limits.
 
 Main responsibilities:
 
-Load ExoClock planet data
+Load ExoClock planet data/n
 Load NASA Exoplanet Archive data
 
 Merge parameters using a NASA first rule
