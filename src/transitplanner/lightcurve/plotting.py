@@ -1,8 +1,12 @@
 import matplotlib.pyplot as plt
 
-def plot_lightcurve(obstime, flux, title="Light Curve"):
+def plot_lightcurve(obstime, flux, info, title="Light Curve"):
+    ingress, indepth, egress = info["markers"]
+    error = info["error"]
+
     plt.figure()
     plt.plot(obstime, flux)
+    plt.errorbar(obstime[[ingress, indepth, egress]], flux[[ingress, indepth, egress]], error, fmt="o", color="red")
     plt.xlabel("Observation Time (Hours)")
     plt.ylabel("Relative Flux")
     plt.title(title)
