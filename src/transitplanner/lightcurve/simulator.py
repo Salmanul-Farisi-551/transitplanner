@@ -2,6 +2,27 @@ import numpy as np
 import pylightcurve as plc
 
 def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
+    """
+
+    This function retrieves transit parameters using pylightcurve, constructs
+    a time array for the observation window, computes relative flux, magnitude,
+    and error estimates based on the SNR, and identifies key transit markers.
+
+    Parameters
+    planet_name .
+    snr.
+    filter 
+
+    Returns
+    obstime :
+        Observation time array in hours from start of transit.
+    transit_flux : 
+        Relative flux values for the synthetic lightcurve.
+    info :
+        Dictionary containing additional lightcurve metadata:
+            
+    """
+
     planet = plc.get_planet(planet_name)
     startend = float('{:.3f}'.format((planet.transit_duration(filter) / 2) + 0.0417))
     time_array = np.arange(planet.mid_time - startend, planet.mid_time + startend, 0.001)
@@ -27,6 +48,7 @@ def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
     }
 
     return obstime, transit_flux, info
+
 
 
 
