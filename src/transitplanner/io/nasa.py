@@ -10,7 +10,7 @@ def load_nasa_data():
         with open(CACHE_FILE, "rb") as f:
             return pickle.load(f)
             
-     print("LOADING FROM CACHE")
+    print("LOADING FROM NASA")
     table = NasaExoplanetArchive.query_criteria("pscomppars")
     df = table.to_pandas()
     df.set_index("pl_name", inplace=True)
@@ -19,4 +19,5 @@ def load_nasa_data():
         pickle.dump(df, f)
 
     return df
+
 
