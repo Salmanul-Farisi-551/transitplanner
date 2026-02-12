@@ -27,7 +27,8 @@ dependencies = [
     "astroplan",
     "pylightcurve",
     "openpyxl",
-    "pickle"
+    "pickle",
+    "pathlib"
 ]
 
 [tool.setuptools]
@@ -35,6 +36,7 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
 
 
 
