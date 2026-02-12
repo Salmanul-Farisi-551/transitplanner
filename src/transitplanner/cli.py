@@ -38,14 +38,16 @@ def main():
     if not planet_list:
         print("No transits found in the observing window.")
         return
-
+    print("1st done")
     # 2. Load catalogues
     exoclock_planets = load_exoclock_data()
 
-    
+    print("2nd done")
+   
     nasa=load_nasa_data()
     # 3. Enrich planet data
     planet_list = enrich_planets(planet_list, exoclock_planets, nasa)
+    print("3rd done")
 
     # 4. Compute SNR and observability
     for planet in planet_list:
@@ -59,6 +61,7 @@ def main():
         )
         planet["Status"] = "Observable" if apply_filters(planet, DEC_MIN, DEC_MAX, SNR_LIM) else "Not Observable"
         
+    print("4th done")
          
             
     # 5. Summary table
@@ -67,6 +70,7 @@ def main():
         export_csv="exoplanet_summary.csv",
         export_excel="exoplanet_summary.xlsx"
     )
+    print("5th done")
 
     # 6. Select observable planets
     observable_planets = [p for p in planet_list if p["Status"] == "Observable"]
@@ -82,6 +86,7 @@ def main():
     selection = int(input("Select planet number to model: ")) - 1
     target_name = observable_planets[selection]["Object"]
     snr = observable_planets[selection]["SNR"]
+    print("6th done")
 
     # 7. Light curve
     obstime, flux, info = generate_lightcurve(target_name, snr)
@@ -92,9 +97,11 @@ def main():
     print(f"Estimated error: {info['error']:.5f}")
     
     plot_lightcurve(obstime, flux, info, title=f"{target_name} Predicted Light Curve")
+    print("7th done")
 
 if __name__ == "__main__":
     main()
+
 
 
 
