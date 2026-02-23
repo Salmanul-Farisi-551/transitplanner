@@ -26,14 +26,19 @@ dependencies = [
     "astroquery",
     "astroplan",
     "pylightcurve",
-    "openpyxl"
+    "openpyxl",
+    "pyarrow"
 ]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
+[tool.setuptools.package-data]
+transitplanner = ["data/*.parquet"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
 
 
 
