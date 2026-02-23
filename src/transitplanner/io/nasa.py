@@ -1,23 +1,23 @@
-from pathlib import Path
-from astroquery.ipac.nexsci.nasa_exoplanet_archive import NasaExoplanetArchive
-import pickle
-
-CACHE_FILE = Path.home() / ".transitplanner_nasa_cache.pkl"
+import pandas as pd
+from importlib import resources
 
 def load_nasa_data():
-    if CACHE_FILE.exists():
-        print("LOADING FROM CACHE")
-        with open(CACHE_FILE, "rb") as f:
-            return pickle.load(f)
+    """
+    Instantly loads the NASA data bundled in the package data folder.
+    """
+    try:
+        # This finds the file inside your src/transitplanner/data folder
+        # even after the package is installed on another computer.
+        data_path = resources.files('transitplanner.data').joinpath('nasa_data.parquet')
+        
+        with data_path.open("rb") as f:
+            df = pd.read_parquet(f)
             
-    print("LOADING FROM NASA")
-    table = NasaExoplanetArchive.query_criteria("pscomppars")
-    df = table.to_pandas()
-    df.set_index("pl_name", inplace=True)
-
-    with open(CACHE_FILE, "wb") as f:
-        pickle.dump(df, f)
-
-    return df
-
-
+        # Ensure 'pl_name' is the index as your previous code expected
+        if "pl_name" in df.columns:
+            df.set_index("pl_name", inplace=True)
+            
+        return df
+    except Exception as e:
+        print(f"Critical Error: Could not load bundled NASA data. {e}")
+        return None
