@@ -90,5 +90,6 @@ def plot_lightcurve(obstime, flux, info, title="Light Curve"):
     ax.annotate(r'$\delta$',(obstime[10],(flux[10]+flux[indepth])/2),xytext=(-10,0),textcoords='offset points')
     
     plt.savefig('lightcurve.png',dpi=150,bbox_inches='tight')
-    plt.show
+    plt.show()
+
 
