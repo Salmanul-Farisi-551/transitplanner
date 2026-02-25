@@ -1,3 +1,6 @@
+
+
+
 import numpy as np
 import pylightcurve as plc
 
@@ -36,18 +39,23 @@ def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
     ingress = np.abs(obstime - 1).argmin()
     endobs = obstime[-1] - 1
     egress = np.abs(obstime - endobs).argmin()
+    grad = np.gradient(transit_flux)
+    grad2 = np.gradient(grad)
 
     error = planet.transit_depth(filter) / snr
+    t2 = ingress + (np.abs(grad2[ingress:indepth] - np.max(grad2)).argmin())
+    t3 = indepth + (np.abs(grad2[indepth:egress]-np.max(grad2)).argmin())
 
     info = {
         "duration_hours": planet.transit_duration(filter) * 24,
         "depth_mag": magdepth,
         "depth_flux": planet.transit_depth(filter),
         "error": error,
-        "markers": (ingress, indepth, egress),
+        "markers": (ingress,t2, indepth, t3, egress),
     }
 
     return obstime, transit_flux, info
+
 
 
 
