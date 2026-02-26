@@ -1,3 +1,6 @@
+
+
+
 import numpy as np
 import pylightcurve as plc
 
@@ -52,3 +55,10 @@ def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
     }
 
     return obstime, transit_flux, info
+
+
+
+
+
+
+

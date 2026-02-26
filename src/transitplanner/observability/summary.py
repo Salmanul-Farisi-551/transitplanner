@@ -1,6 +1,28 @@
 import pandas as pd
 
 def check_observability_table(planet_list, export_csv=None, export_excel=None):
+    """
+    Generate a summary table of observability results.
+
+    This function collects key parameters and observability decisions into
+    a structured table suitable for printing or exporting to file formats.
+
+    Optional CSV and Excel outputs allow results to be saved for later analysis.
+
+    Parameters
+    planet_list
+    List of enriched planet dictionaries including observability status
+
+    export_csv
+    Optional path to export CSV file
+
+    export_excel
+    Optional path to export Excel file
+
+    Returns
+    Pandas DataFrame containing the observability summary
+    """
+
     summary_data = []
 
     for planet in planet_list:
@@ -18,7 +40,8 @@ def check_observability_table(planet_list, export_csv=None, export_excel=None):
             "SNR": planet.get('SNR'),
             "RA": planet['RA'],
             "DEC": planet['Dec'],
-            "Status": planet['Status']
+            "Status": planet['Status'],
+             "Priority": planet.get("priority")
         })
 
     df = pd.DataFrame(summary_data)
@@ -27,3 +50,9 @@ def check_observability_table(planet_list, export_csv=None, export_excel=None):
     if export_excel:
         df.to_excel(export_excel, index=False)
     return df
+
+
+
+
+
+
