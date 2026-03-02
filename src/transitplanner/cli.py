@@ -6,8 +6,8 @@ import pandas as pd
 from .core.visibility import find_observable_exoplanets
 from .observability.enrich import enrich_planets
 from .observability.snr import snr_formula
-from .observability.summary import check_observability_table
-from .io.filters import apply_filters
+from .io.summary import check_observability_table
+from .observability.filters import apply_filters
 from .lightcurve.simulator import generate_lightcurve
 from .lightcurve.plotting import plot_lightcurve
 from .io.nasa import load_nasa_data
