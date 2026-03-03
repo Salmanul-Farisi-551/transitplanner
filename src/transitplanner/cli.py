@@ -138,11 +138,12 @@ def main():
     print("NASA data runtime:", Run_time_loading_NASA, "seconds")
     print("visibility constarints runtime:", Run_time_visibility, "seconds")
     print("light curve prediction runtime:", Run_time_LIGHT_curve_prediction, "seconds")
-end_1 = time.time()
-print("total runtime:", end_1 - start_1, "seconds")
+
    
 if __name__ == "__main__":
     main()
+end_1 = time.time()
+print("total runtime:", end_1 - start_1, "seconds")
 
 
 
