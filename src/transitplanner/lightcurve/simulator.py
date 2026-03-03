@@ -28,7 +28,7 @@ def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
 
     planet = plc.get_planet(planet_name)
     startend = float('{:.3f}'.format((planet.transit_duration(filter) / 2) + 0.0417))
-    time_array = np.arange(planet.mid_time - startend, planet.mid_time + startend, 0.001)
+    time_array = np.arange(planet.mid_time - startend, planet.mid_time + startend, 0.0005)
     obstime = (time_array - time_array[0]) * 24
     transit_flux = planet.transit(time_array, "BJD_TDB", filter)
 
@@ -55,6 +55,7 @@ def generate_lightcurve(planet_name, snr, filter="COUSINS_R"):
     }
 
     return obstime, transit_flux, info
+
 
 
 
