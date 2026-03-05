@@ -18,6 +18,7 @@ The project structure is inspired by established astronomy software and is inten
   - [How to install](#how-to-install)
     - [Install from source code](#install-from-source-code)
   - [Documentation](#documentation)
+  - [How to contribute](#How-to-contribute)
     
     
   
@@ -37,3 +38,7 @@ pip install .
 ## Documentation
 
 Full documentation can be accessed here:[https://transitplanner.readthedocs.io/en/latest/](https://transitplanner.readthedocs.io/en/latest/)
+
+## How to contibute
+
+You can contribute to Transit Planner by reporting bugs, suggesting new features, or contributing to the code itself. If you want to contribute to the code, please follow the steps described in the documentation under Developer guide
