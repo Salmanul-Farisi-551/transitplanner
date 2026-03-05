@@ -19,7 +19,7 @@ The project structure is inspired by established astronomy software and is inten
     - [Install from source code](#install-from-source-code)
   - [Documentation](#documentation)
     - [Build the html documentation](#build-the-html-documentation)
-    - [Build the pdf documentation](#build-the-pdf-documentation)
+    
   
 
 ## How to install
